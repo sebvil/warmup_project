@@ -106,8 +106,8 @@ Thus, to run the code, all we need is the line `WallFollower.run()`.
 
 ### Demo
 
-The following GIF shows the code in action. As we can see, we are able to drive
-in a square with little error, as we are able to reach the starting position.
+The following GIF shows the code in action. The Turtlebot stays close to the 
+wall at all times and handles corners properly.
 
 ![Demo of Turtlebot wall follower](assets/wall_follower.gif)
 
@@ -144,4 +144,44 @@ Thus, to run the code, all we need is the line `PersonFollower.run()`.
 The following GIF shows the code in action. As we can see, we are able to drive
 in a square with little error, as we are able to reach the starting position.
 
-![Demo of Turtlebot driving in a square](assets/drive_in_a_square.gif)
+![Demo of Turtlebot following a person](assets/person_follower.gif)
+
+
+## Challenges
+
+The biggest challenge when designing these robots behaviors was dealing with
+uncertainty and noise due to environment noise, and inaccuracies in the sensor
+readings and movements of the robot. This was especially noticeable in the 
+“Drive in a square” behavior, as I had to implement this behavior without any 
+sensor data, so it was basically impossible to determine if the robot was
+off-course. Determining good speeds/distances for the behaviors was also 
+challenging, as going too fast/turning too late could result in drifting too 
+much or crashing against a wall. I was able to find good values for my behaviors
+by a bit of trial and error, and being somewhat conservative in my choices 
+(lower speeds, higher distance to stop/turn). 
+
+
+## Future work
+
+If I had more time, I would have tried to make these behaviors more robust. In
+my current implementations, many of the values for velocities and distances are 
+hard coded. With more testing, a more robust implementation could be done so 
+where a user might be able to input values for speed and distance and the 
+behaviors would still work as expected.
+
+## Takeaways
+
+- Make diagrams. When writing functions, you usually give it an input and get
+an output that you can easily verify against the expected output. This is very
+useful for debugging, as well as for designing the code. It is easier to write
+a function if you know exactly what it should produce. With ROS, however, 
+the functions we write just send messages to the robot, and the robot reacts 
+accordingly. Because the data is sent so consistently, it is hard to know 
+exactly what values caused which robot behavior. Making diagrams helps to think
+how the functions should work, and what values should the robot receive to go
+from one state to another.
+- Experiment with different values. All of my behaviors failed a few 
+times. Sometimes it was due to logical errors, but sometimes it was because I 
+was using values that were not appropriate for the behavior. Playing around with
+different values helped me get the behaviors to work without having to spend 
+too much time debugging or looking for another solution.
