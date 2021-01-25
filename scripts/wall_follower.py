@@ -11,18 +11,12 @@ class WallFollower:
         self.publisher = rospy.Publisher("/cmd_vel", Twist, queue_size=10)
         self.speed = Twist()
         self.speed.linear.x = 0.3
-        rospy.Subscriber("/cmd_vel", Twist, self._process_speed)
         rospy.Subscriber("/scan", LaserScan, self._proccess_scan)
         self.found_wall = False
-
-    def _process_speed(self, data):
-        pass
-        # print(data)
 
     def _proccess_scan(self, data):
         min_dist = min(data.ranges)
         min_angle = data.ranges.index(min_dist)
-        print(min_dist, min_angle)
 
         if min_dist < 1:
             self.found_wall = True
